@@ -1,0 +1,23 @@
+{
+  "name": "ecommerce-backend",
+  "version": "1.0.0",
+  "description": " Complete e-commerce backend API",
+  "license": "ISC",
+  "author": "Omar Yasir",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:server": "cd backend && npm run dev",
+    "dev:client": "cd Frontend && npm run dev",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "start": "cd backend && npm start",
+    "docker:up": "docker-compose -f docker/docker-compose.yml up -d",
+    "docker:down": "docker-compose -f docker/docker-compose.yml down",
+    "build": "npm run build:server && npm run build:client",
+    "build:server": "cd backend && npm run build",
+    "build:client": "cd Frontend && npm run build"
+    },
+  "dependencies": {
+  }
+}
