@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IoSearch, IoShieldOutline, IoPersonOutline, IoTime, IoTrash, IoCheckmark } from 'react-icons/io5';
-import { showToast } from '../common/Toast';
+import { showToast } from '../../components/common/Toast';
 import api from '../../services/api';
-import Loader from '../common/Loader';
+import Loader from '../../components/common/Loader';
 
 const AdminManagement = () => {
   const dispatch = useDispatch();
