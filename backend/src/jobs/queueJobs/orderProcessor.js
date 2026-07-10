@@ -1,4 +1,4 @@
-const { orderProcessingQueue } = require('./queueJobs/orderProcessingQueue');
+const { orderProcessingQueue } = require('./orderProcessingQueue');
 const logger = require('../../utils/logger');
 const { paymentService, emailService, orderService } = require('../../services');
 const { User } = require('../../models');
