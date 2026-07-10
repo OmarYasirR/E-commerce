@@ -9,13 +9,11 @@ const { orderProcessingQueue } = require('../jobs/queueJobs/orderProcessingQueue
 const createOrder = asyncHandler(async (req, res) => {
   const { shippingAddress, paymentMethod, notes } = req.body;
   
-  // 1. Get cart
   const cart = await cartService.getCart(req.user._id);
   if (!cart.items || cart.items.length === 0) {
     throw new ApiError(400, 'Cart is empty');
   }
   
-  // 2. Create order
   const order = await orderService.createOrder({
     user: req.user._id,
     items: cart.items,
@@ -28,30 +26,13 @@ const createOrder = asyncHandler(async (req, res) => {
     notes
   });
   
-  // 3. Clear cart
   await cartService.clearCart(req.user._id);
   
-  // 4. Queue order processing (non‑blocking, optional)
+  // Add job to process order (includes payment, inventory, and email)
   await orderProcessingQueue.add('process-order', { orderId: order._id });
   
-  // 5. Send confirmation email – catch errors and log them, but don't let them crash the response
-  let emailSent = false;
-  try {
-    await emailService.sendOrderConfirmation(order, req.user);
-    emailSent = true;
-  } catch (error) {
-    logger.error('Failed to send order confirmation email:', error);
-    // Email failure is not critical for the order creation; we continue
-  }
-  
-  // 6. Respond with appropriate message
-  const message = emailSent 
-    ? 'Order created successfully. Confirmation email sent.' 
-    : 'Order created successfully, but failed to send confirmation email.';
-  
-  res.status(201).json(new ApiResponse(201, order, message));
+  res.status(201).json(new ApiResponse(201, order, 'Order created successfully. We will send you a confirmation email shortly.'));
 });
-
 const getOrders = asyncHandler(async (req, res) => {
   const { page = 1, limit = 10, status } = req.query;
   

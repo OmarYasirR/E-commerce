@@ -9,7 +9,7 @@ const Loader = ({ fullScreen = false, size = 'md' }) => {
   }
   
   const spinner = (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center h-full">
       <div className={`${sizes[size]} border-4 border-primary-200 border-t-primary-600 rounded-full animate-spin`} />
     </div>
   ) 

@@ -1,4 +1,5 @@
 require('dotenv').config();
+require('./jobs/queueJobs/orderProcessor');
 const app = require('./app');
 const logger = require('./utils/logger');
 const { dbConfig, redisConfig, initConfigs } = require('./config');
@@ -8,7 +9,7 @@ const PORT = process.env.PORT || 5000;
 let server;
 
 const startServer = async () => {
-  try {
+  try { 
     // Initialize all configurations
     await initConfigs();  
 
