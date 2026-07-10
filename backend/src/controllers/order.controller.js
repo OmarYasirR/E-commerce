@@ -31,9 +31,13 @@ const createOrder = asyncHandler(async (req, res) => {
   
   await orderProcessingQueue.add('process-order', { orderId: order._id });
   
-  await emailService.sendOrderConfirmation(order, req.user);
+  const emailResult = await emailService.sendOrderConfirmation(order, req.user);
+
+  if (!emailResult) {
+    res.status(201).json(new ApiResponse(201, order, 'Order created successfully, but failed to send confirmation email.'));
+  }
+  res.status(201).json(new ApiResponse(201, order, 'Order created successfully. Confirmation email sent.'));
   
-  res.status(201).json(new ApiResponse(201, order, 'Order created successfully'));
 });
 
 const getOrders = asyncHandler(async (req, res) => {

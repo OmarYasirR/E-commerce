@@ -159,6 +159,8 @@ const CheckoutPage = () => {
         throw new Error("Order ID not found");
       }
 
+      console.log("Payment successful for order:", orderId, paymentResult);
+
       // Clear cart and current order from state
       await dispatch(clearCart());
       dispatch(clearCurrentOrder());
@@ -191,14 +193,11 @@ const CheckoutPage = () => {
     );
   }
 
-  // Show loading while creating order
+  // Show loading while creating order  
   if (isCreatingOrder) {
     return (
-      <div className="container-custom py-8">
-        <div className="text-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Creating your order...</p>
-        </div>
+      <div className="container-custom py-8 mt-3"> 
+        <Loader message="Creating your order, please wait..." />
       </div>
     );
   }
