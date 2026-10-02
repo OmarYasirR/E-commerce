@@ -1,3 +1,8 @@
+![Project Screenshot](Frontend/public/images/logos/Logoo.svg)
+
+
+
+
 # ShopHub E-Commerce Platform - Technical Documentation
 
 ## Project Overview
