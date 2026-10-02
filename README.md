@@ -1,4 +1,4 @@
-![Project Screenshot](Frontend/public/images/logos/Logoo.svg)
+![Project Screenshot](Frontend/public/images/logos/Logo.svg)
 
 
 
